@@ -20,6 +20,8 @@ public class LoginServlet extends HttpServlet {
         if (session.getAttribute("user") != null) {
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
         } else {
+            String login = request.getParameter("login"); // Получаем значение параметра "login" из запроса
+            request.setAttribute("login", login);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         }
@@ -40,4 +42,5 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
+
 }
