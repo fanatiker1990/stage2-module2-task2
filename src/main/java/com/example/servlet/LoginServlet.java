@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         // Проверяем наличие атрибута сеанса "пользователь"
         if (request.getSession().getAttribute("user") != null) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/hello.jsp");
         } else {
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
         }
@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", username);
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
         } else {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            response.sendRedirect(request.getContextPath() + "/hello.jsp");
         }
     }
 }

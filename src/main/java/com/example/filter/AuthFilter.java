@@ -16,7 +16,7 @@ public class AuthFilter implements Filter {
 
         // Проверяем наличие атрибута сеанса "пользователь"
         if (httpRequest.getSession().getAttribute("user") == null) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/hello.jsp");
         } else {
             chain.doFilter(request, response);
         }
