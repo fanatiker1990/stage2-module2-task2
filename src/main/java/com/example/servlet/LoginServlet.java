@@ -16,8 +16,8 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Проверяем наличие атрибута сеанса "пользователь"
-        HttpSession session = request.getSession(false); // Use "false" to prevent the creation of a new session
-        if (session != null && session.getAttribute("user") != null) {
+        HttpSession session = request.getSession(); // Use "false" to prevent the creation of a new session
+        if (session.getAttribute("user") != null) {
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
