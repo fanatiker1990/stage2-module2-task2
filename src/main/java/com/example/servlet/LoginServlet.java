@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -15,7 +16,8 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Проверяем наличие атрибута сеанса "пользователь"
-        if (request.getSession().getAttribute("user") != null) {
+        HttpSession session = request.getSession(false); // Use "false" to prevent the creation of a new session
+        if (session != null && session.getAttribute("user") != null) {
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
