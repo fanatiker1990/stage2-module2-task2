@@ -1,5 +1,6 @@
 package com.example.servlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,9 +16,10 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         // Проверяем наличие атрибута сеанса "пользователь"
         if (request.getSession().getAttribute("user") != null) {
-            response.sendRedirect(request.getContextPath() + "/hello.jsp");
-        } else {
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -28,11 +30,12 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         // Проверяем логин и пароль
-        if (username != null && password != null && username.equals("user")) {
+        if (username != null && !password.isEmpty() && (username.equals("user") || username.equals("admin"))) {
             request.getSession().setAttribute("user", username);
             response.sendRedirect(request.getContextPath() + "/user/hello.jsp");
         } else {
-            response.sendRedirect(request.getContextPath() + "/hello.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }
